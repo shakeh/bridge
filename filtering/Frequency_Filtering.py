@@ -10,7 +10,7 @@ start = float( sys.argv[2] )
 end = float( sys.argv[3] ) 
 
 save_path = sys.argv[4]
-nameFile = os.path.join( save_path, "FreqRange"+sys.argv[1].split("/")[-1] )
+nameFile = os.path.join( save_path, "FreqRange_"+sys.argv[1].split("/")[-1] )
 outFile = open( nameFile, "w" )
 
 L = []
