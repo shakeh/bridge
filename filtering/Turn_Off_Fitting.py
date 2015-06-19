@@ -1,8 +1,8 @@
 import sys
 import os.path
 
-inputFileName = "input.par"
-save_path = sys.argv[1]
+inputFileName = sys.argv[1]
+save_path = sys.argv[2]
 outputFileName = os.path.join( save_path, "output.par" )
 
 
