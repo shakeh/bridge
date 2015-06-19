@@ -3,7 +3,7 @@ import os.path
 
 inputFileName = sys.argv[1]
 save_path = sys.argv[2]
-outputFileName = os.path.join( save_path, "output.par" )
+outputFileName = os.path.join( save_path, sys.argv[1].split("/")[-1] )
 
 
 
