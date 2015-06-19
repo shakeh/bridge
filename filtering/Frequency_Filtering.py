@@ -1,3 +1,4 @@
+# Frequency_Filtering.py
 # A script that takes in a .tim file, frequency range, and an output directory
 # as a result, it creates a new file with frequencies in the frequency range, stored in output directory
 # sample input:
