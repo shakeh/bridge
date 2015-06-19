@@ -1,3 +1,13 @@
+# TOA_Filtering.py
+# A script that takes in a .tim file, start time and end time, and an output directory
+# as a result, it creates a new file with TOAs in the time range, stored in output directory
+# sample input:
+# python TOA_Filtering.py /Users/fkeri/Desktop/B1855+09_NANOGrav_9yv0.tim 51000 56000 /Users/fkeri/Desktop/
+# we can see that it takes in 4 line arguments: [INPUT FILE], [TIME START], [TIME END], [OUTPUT DIRECTORY]
+# [TIME START] and [TIME END] formats: MJD or YYYY/MM/DD
+# the output file will have the same name as the input file, with "TOArange_" as a prefix: "TOArange_B1855+09_NANOGrav_9yv0.tim"
+# it is possible to name the output file differently by putting the file name in [OUTPUT DIRECTORY]: /Users/fkeri/Desktop/filename.tim
+
 import sys
 import math
 import datetime
@@ -42,7 +52,10 @@ def transform( X ):
 inFile = open( sys.argv[1], "r" )
 
 save_path = sys.argv[4]
-nameFile = os.path.join( save_path, "TOAfiltered_"+sys.argv[1].split("/")[-1] )
+if save_path[-4] != '.':
+    nameFile = os.path.join( save_path, "TOArange_"+sys.argv[1].split("/")[-1] )
+else:
+    nameFile = save_path
 outFile = open( nameFile, "w" )
 
 inFile.readline() #omit first line
