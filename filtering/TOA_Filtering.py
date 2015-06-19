@@ -42,7 +42,7 @@ def transform( X ):
 inFile = open( sys.argv[1], "r" )
 
 save_path = sys.argv[4]
-nameFile = os.path.join( save_path, "TOAfiltered"+sys.argv[1].split("/")[-1] )
+nameFile = os.path.join( save_path, "TOAfiltered_"+sys.argv[1].split("/")[-1] )
 outFile = open( nameFile, "w" )
 
 inFile.readline() #omit first line
