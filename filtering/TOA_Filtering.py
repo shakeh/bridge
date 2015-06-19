@@ -3,6 +3,7 @@ import math
 import datetime
 import jdcal
 import glob
+import os.path
 
 def date2mjd(year, month, day):
     """
@@ -39,7 +40,7 @@ def transform( X ):
 	return float( X )
 
 inFile = open( sys.argv[1], "r" )
-outFile = open( "RangeTime.tim", "w" )
+outFile = open( os.path.join( sys.argv[2], "TOAfiltered_"+sys.argv[1].split("/")[-1], "w" )
 
 inFile.readline() #omit first line
 ALLlines = inFile.readlines()
