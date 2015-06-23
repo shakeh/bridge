@@ -1,5 +1,5 @@
 #this is the code for plotting different time delays: solar system Roemer delay, Dispersion measure and Period derivative.
-
+#the code generates two plots: one shows individual delays, the other one shows the sum of all delays
 
 import sys
 import matplotlib.pyplot as plt
