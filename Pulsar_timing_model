@@ -67,7 +67,7 @@ plt.ylabel('model delay')
 plt.title('time delay model')
 
 figure(2)
-plt.plot(t,s1+s2+s3,'m',label='delay sum')
+plt.plot(t,s1+s2-s3,'m',label='delay sum')
 plt.xticks([0, pi/2, pi, 3*pi/2, 2*pi, 5*pi/2, 3*pi, 7*pi/2, 4*pi], ['$ 53349 $''\n$ 2005/3/20 $', '$ 53542 $' '\n$ 2005/6/21 $', '$53635$' '\n$ 2005/9/22 $' , '$53725$' '\n$ 2005/12/21 $', '$53814$''\n$ 2006/3/20 $', '$53907$' '\n$ 2006/6/21 $', '$54001$' '\n$ 2006/9/23 $', '$54090$' '\n$ 2006/12/21 $','$54179$' '\n$ 2007/3/20 $'])
 
 plt.legend(bbox_to_anchor=(0, 1), loc=2, borderaxespad=0.)
