@@ -80,39 +80,6 @@ def find_C( psr1, psr2 ): # a function that calculates correlation between two p
 	R1 = [] # residuals for correlation
 	R2 = []
 
-	# testfile = open( os.path.join( sys.argv[2], "test6.txt" ), "a" )
-
-	# for i in range( min( len( TOA1 ), len( TOA2 ) ) ):
-	# 	testfile.write( str( TOA1[i] )+" "+str( TOA2[i] )+"\n" )
-
-	# while i < len( TOA1 ): # slide the TOAs
-	# 	if idx >= len( TOA2 ):
-	# 		break
-	# 	if ABS( TOA2[idx]-TOA1[i] ) < 7:
-	# 		if( TOA2[idx] > TOA1[i] ):
-	# 			while( i < len( TOA1 )-1 ):
-	# 				i += 1
-	# 				if( ABS( TOA2[idx]-TOA1[i] ) > ABS( TOA2[idx]-TOA1[i-1] ) ):
-	# 					i -= 1
-	# 					break
-	# 		else:
-	# 			while( idx < len( TOA2 )-1 ):
-	# 				idx += 1
-	# 				if( ABS( TOA2[idx]-TOA1[i] ) > ABS( TOA2[idx-1]-TOA1[i] ) ):
-	# 					idx -= 1
-	# 					break
-
-	# 		R1.append( Residuals1[i] )
-	# 		R2.append( Residuals2[idx] )
-	# 		# testfile.write( str( TOA1[i] )+" "+str( TOA2[idx] )+"\n" )
-	# 		idx += 1
-	# 		i += 1
-	# 	else:
-	# 		if TOA2[idx] > TOA1[i]:
-	# 			i += 1
-	# 		else:
-	# 			idx += 1
-
 	used = {}
 	for i in range( len( TOA1 ) ):
 		mini = 100000
@@ -152,9 +119,6 @@ def find_C( psr1, psr2 ): # a function that calculates correlation between two p
 		ret += ( R1[i]-mR1 )/sR1*( R2[i]-mR2 )/sR2
 	ret /= len( R1 )-1
 
-	# testfile.write( str( len( TOA1 ) )+" "+str( len( TOA2 ) )+" "+str( len( R1 ) )+"\n" )
-	# testfile.close()
-
 	return ret
 
 def main():
@@ -190,9 +154,6 @@ def main():
 		except KeyError:
 			COOR.append( copy.copy( Ecl2Cel( PSR['ELONG'].val, PSR['ELAT'].val, PSR['POSEPOCH'].val ) ) )
 
-		# running AVERAGE_EPOCHS to compress the TOAs and Residuals
-		# print "python Average_Epochs.py "+T.data+pList[i][0]+" "+T.data+pList[i][1]+" "+save_path
-		# time.sleep(4)
 		ok = False
 		FILES = os.listdir( save_path )
 		for X in FILES:
