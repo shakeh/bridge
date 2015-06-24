@@ -16,7 +16,7 @@ def Cel2Ecl( A, B ):
   return (lamdaa,betaa)
 
 
-f = open('J1713+0747_NANOGrav_dfg+12.par' , 'r' )
+f = open(sys.argv[1] , 'r' )
 line = f.readlines()
 
 #read in par file
