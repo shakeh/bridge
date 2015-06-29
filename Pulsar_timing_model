@@ -68,7 +68,7 @@ plt.xticks([0, pi/2, pi, 3*pi/2, 2*pi, 5*pi/2, 3*pi, 7*pi/2, 4*pi], ['$ 53349 $'
 
 plt.legend(bbox_to_anchor=(0, 1), loc=2, borderaxespad=0.)
 plt.xlabel('time')
-plt.ylabel('model delay/seconds')
+plt.ylabel('model delay \n(seconds)')
 plt.title('time delay model')
 
 figure(2)
@@ -78,6 +78,6 @@ plt.xticks([0, pi/2, pi, 3*pi/2, 2*pi, 5*pi/2, 3*pi, 7*pi/2, 4*pi], ['$ 53349 $'
 plt.legend(bbox_to_anchor=(0, 1), loc=2, borderaxespad=0.)
 
 plt.xlabel('time')
-plt.ylabel('model delay')
+plt.ylabel('model delay \n(seconds)')
 plt.title('time delay model')
 plt.show()
