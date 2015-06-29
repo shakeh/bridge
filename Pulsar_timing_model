@@ -5,7 +5,7 @@
 # The other Dispersion Measure delay changes as a function of time. Total delay inside a time range equals DM base value + DMX_00x.
 # Period Derivative is the pulsar spin down rate. As pulsar gets older and olders, it gradually slows down which will cause a time delay.
 #a par file is needed to run this code. 
-
+# the y-axis unit is in seconds
 
 
 import sys
