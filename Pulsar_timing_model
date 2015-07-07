@@ -88,7 +88,7 @@ s3 = 4.149 * 10**5 * DM * t/t * (600**-2 - 800**-2) * 0.001 * 10**-18 #DM delay 
 figure(1)
 plt.plot(t,s1,'g',label='solar system roemer delay*10^-22')
 plt.plot(t,s2,'r',label='Period Derivative')
-plt.plot(t,s3,'b',label='Dispersion Measure')
+plt.plot(t,s3,'b',label='Dispersion Measure*10^-18')
 
 plt.legend(bbox_to_anchor=(0, 1), loc=2, borderaxespad=0.)
 
