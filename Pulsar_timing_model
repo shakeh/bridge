@@ -1,12 +1,13 @@
 #this is the code for plotting different time delays: solar system Roemer delay, Dispersion measure and Period derivative. p.s More model delays will be added in the future.
-#the code generates two plots: one shows individual delays, the other one shows the sum of all delays
+# the code generates two plots: one shows individual delays, the other one shows the sum of all delays
 # Solar system Roemer delay is the classical light travel time across earth orbit. It is the simple vaccum delay between the arrival of pulse at the obervatory and the solar system barycentric. To illustrate, imagine an Earth-Sun-Pulsar system, when earth is at the far orbit( of sun) relative to pulsar, the roemer delay will be the biggest and vice versa. The following plot starts at vernal equinox, where earth is the futherest from the pulsar, which creates the biggest delay. Later, as earth travels around the sun through autumn equinox and solstice points, the delay first gets smaller and then  bigger. (a continous cosine wave)
 # Dispersion Measure delay is the delay due to dispersion in the interstella medium, so that the arrival time of pulse depends on the observing frequency. Here the oberserving frequency is set to be 600 Mhz and 800 Mhz. 
+# Another DM delay changes as a function of time. It has a base value DM and a changing variable DMX. So, DM as a fucntion of time = DM + DMX
 # Period Derivative is the pulsar spin down rate. As pulsar gets older and olders, it gradually slows down which will cause a time delay.
 # the y-axis unit is in seconds
 
 
-# to RUN this code, you will need to type in pulsar's par file name in the command line. eg: python pulsar_timing_model.py J1714_3707Nanoxxxx.par
+# to RUN this code, you will need to type in pulsar's par file name TWICE in the command line. eg: python pulsar_timing_model.py J1714_3707Nanoxxxx.par J1714_3707Nanoxxxx.par
 
 import sys
 import matplotlib.pyplot as plt
@@ -20,8 +21,51 @@ def Cel2Ecl( A, B ):
   lamdaa = math.acos( math.cos(math.radians(A) )*math.cos(math.radians(B))/math.cos(math.radians(betaa)))
   return (lamdaa,betaa)
 
+def remove_space( A ):
+    ret = []
+    for curr in A:
+        if curr != '':
+            ret.append( curr )
+    return ret
 
-f = open(sys.argv[1] , 'r' )
+def PB( A ):
+  r = 4.925490947 * A
+  return (r)
+  
+  inFile = open( sys.argv[1], "r" )
+
+
+
+All = inFile.readlines()
+
+DMR = []
+
+for line in All:
+    X = line.split(' ')
+    if X[0][0:4] == "DMX_":
+        X = remove_space( X )
+        DMR.append( float( X[1] ) )
+DMX = DMR + DMR
+
+DMXR1 = []
+
+for line in All:
+    X = line.split(' ')
+    if X[0][0:5] == "DMXR1":
+        X = remove_space( X )
+        DMXR1.append( float( X[1] ) )
+
+DMXR2 = []
+
+for line in All:
+    X = line.split(' ')
+    if X[0][0:5] == "DMXR2":
+        X = remove_space( X )
+        DMXR2.append( float( X[1] ) )
+
+
+
+f = open(sys.argv[2] , 'r' )
 line = f.readlines()
 
 #read in par file
@@ -51,21 +95,20 @@ for i in range(1,23 ):
   elif i == 22:
     FINISH = float( y[1] )
     
+
+for i in range(len(DMX)):
+    DMX[i]+=DM
+
+DMXRI = DMXR1 + DMXR2
+index = {}
+for i in range(len(DMXRI)):
+    index[DMXRI[i]]=i
+
+DMXRI.sort()
+d=[]
+for i in range(len(DMXRI)):
+    d.append(DMX[index[DMXRI[i]]])
     
-rah = float( ra[0] )
-ram = float( ra[1] )
-ras = float( ra[2] )
-deg = (rah) + (ram/60) + (ras/3600)
-
-dech = float( dec[0] )
-decm = float( dec[1] )
-decs = float( dec[2] )
-deg2 = (dech) + (decm/60) + (decs/3600)
-
-lamdaa, betaa = Cel2Ecl( deg, deg2 )
-
-f.close()
-
 r = PB( M2  )
 
 rah = float( ra[0] )
@@ -82,28 +125,44 @@ lamdaa, betaa = Cel2Ecl( deg, deg2 )
 
 f.close()
 
+
 t = arange(START, FINISH, 0.01)
+
 s1 = 500 * 10**-22  * cos(betaa) * cos(( t  - TO  ) * 2 * pi  /365.25 + lamdaa) #here roemer has a much larger coefficient compare to the other two, so I reduce its value by 10^-22 to make them on the same scale
 s2 = - F1 * ((t - TO) * 2 * pi /365.25)  /( F0**2)
 s3 = 4.149 * 10**5 * DM * t/t * (600**-2 - 800**-2) * 0.001 * 10**-18 #DM delay is constant
 
-figure(1)
-plt.plot(t,s1,'g',label='solar system roemer delay*10^-22')
-plt.plot(t,s2,'r',label='Period Derivative')
-plt.plot(t,s3,'b',label='Dispersion Measure*10^-18')
+ax5 = subplot(515)
+plt.plot(t,s1 + s2 - s3,'c',label='delay sum')
+setp( ax5.get_xticklabels(), fontsize=10)
+plt.legend(bbox_to_anchor=(0, 1), loc=2, borderaxespad=0.,prop={'size':10})
 
-plt.legend(bbox_to_anchor=(0, 1), loc=2, borderaxespad=0.)
 
-plt.xlabel('time')
-plt.ylabel('model delay \n(seconds)')
-plt.title('time delay model')
+ax1 = subplot(511,sharex=ax5)
+plot(t,s1,'r',label='Roemer Delay \n *10^-22')
+plt.title('Pulsar Timing Models \n x-axis:date y-axis:seconds  ')
+setp( ax1.get_xticklabels(), visible=False)
+plt.legend(bbox_to_anchor=(0, 1), loc=2, borderaxespad=0.,prop={'size':7})
 
-figure(2)
-plt.plot(t,s1+s2-s3,'m',label='delay sum')
 
-plt.legend(bbox_to_anchor=(0, 1), loc=2, borderaxespad=0.)
+ax2 = subplot(512, sharex=ax5)
+plt.plot(t,s2,'b',label='Period Derivatives')
+setp( ax2.get_xticklabels(), visible=False)
+plt.legend(bbox_to_anchor=(0, 1), loc=2, borderaxespad=0.,prop={'size':10})
 
-plt.xlabel('time')
-plt.ylabel('model delay \n(seconds)')
-plt.title('time delay model')
+
+ax3 = subplot(513, sharex=ax5)
+plt.plot(t,s3,'m',label='Dispersion Measure*10^-18')
+setp( ax3.get_xticklabels(), visible=False)
+plt.legend(bbox_to_anchor=(0, 1), loc=2, borderaxespad=0.,prop={'size':10})
+
+ax4 = subplot(514, sharex=ax5)
+plt.plot(DMXRI, d, 'k_-',label='DM \nas \na function \nof time')
+plt.plot(DMXRI, d, 'g-')
+setp( ax4.get_xticklabels(), visible=False)
+plt.legend(bbox_to_anchor=(0, 1), loc=2, borderaxespad=0.,prop={'size':7})
+plt.ylabel('cm^-3*pc')
+ax4.yaxis.label.set_color('g')
+
+
 plt.show()
