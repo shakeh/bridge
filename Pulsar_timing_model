@@ -38,7 +38,7 @@ inFile = open( sys.argv[1], "r" )
 
 All = inFile.readlines()
 
-# From here, this code automatically read all the parameters needed for plotting. It should be working for every single par file. 
+# From here, this code automatically read all the parameters needed for plotting.It should be working for every single par file. 
 
 DMR = []
 
