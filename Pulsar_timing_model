@@ -38,6 +38,8 @@ inFile = open( sys.argv[1], "r" )
 
 All = inFile.readlines()
 
+# From here, this code automatically read all the parameters needed for plotting. It should be working for every single par file. 
+
 DMR = []
 
 for line in All:
@@ -63,6 +65,7 @@ for line in All:
         X = remove_space( X )
         DMXR2.append( float( X[1] ) )
 
+#DM, FO, F1, PEPOCH, DECJ, RAJ, M2, START, FINISH. 
 
 for line in All:
     X = line.split(' ')
@@ -132,9 +135,7 @@ for line in All:
 print FINISH
 
 
-
-    
-
+#sort DMX and DM
 for i in range(len(DMX)):
     DMX[i]+=DM
 
@@ -150,6 +151,8 @@ for i in range(len(DMXRI)):
     
 r = PB( M2  )
 
+#convert RAJ and DECJ to degrees
+
 rah = float( RAJ[0] )
 ram = float( RAJ[1] )
 ras = float( RAJ[2] )
@@ -160,11 +163,12 @@ decm = float( DECJ[1] )
 decs = float( DECJ[2] )
 deg2 = (dech) + (decm/60) + (decs/3600)
 
+# Convert RA and DEC to longitude and latitude
 lamdaa, betaa = Cel2Ecl( deg, deg2 )
 
 f.close()
 
-
+# range depends on whether the par file is a 5 year or 9 year data.
 t = arange(START, FINISH, 0.01)
 
 s1 = 500 * 10**-22  * cos(betaa) * cos(( t  - PEPOCH  ) * 2 * pi  /365.25 + lamdaa) #here roemer has a much larger coefficient compare to the other two, so I reduce its value by 10^-22 to make them on the same scale
