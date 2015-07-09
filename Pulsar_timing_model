@@ -1,5 +1,5 @@
 #this is the code for plotting different time delays: solar system Roemer delay, Dispersion measure and Period derivative. p.s More model delays will be added in the future.
-# the code generates two plots: one shows individual delays, the other one shows the sum of all delays
+# the code generates one plot which shows individual delays and delay sum at the bottom.
 # Solar system Roemer delay is the classical light travel time across earth orbit. It is the simple vaccum delay between the arrival of pulse at the obervatory and the solar system barycentric. To illustrate, imagine an Earth-Sun-Pulsar system, when earth is at the far orbit( of sun) relative to pulsar, the roemer delay will be the biggest and vice versa. The following plot starts at vernal equinox, where earth is the futherest from the pulsar, which creates the biggest delay. Later, as earth travels around the sun through autumn equinox and solstice points, the delay first gets smaller and then  bigger. (a continous cosine wave)
 # Dispersion Measure delay is the delay due to dispersion in the interstella medium, so that the arrival time of pulse depends on the observing frequency. Here the oberserving frequency is set to be 600 Mhz and 800 Mhz. 
 # Another DM delay changes as a function of time. It has a base value DM and a changing variable DMX. So, DM as a fucntion of time = DM + DMX
