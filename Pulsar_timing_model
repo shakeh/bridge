@@ -108,7 +108,6 @@ for line in All:
     if X[0][0:4] == "M2":
         X = remove_space( X )
         M2 = float( X[1] )
-print M2
 
 
 for line in All:
@@ -116,7 +115,6 @@ for line in All:
     if X[0][0:6] == "PEPOCH":
         X = remove_space( X )
         PEPOCH = float( X[1] )
-print PEPOCH
 
 
 for line in All:
@@ -124,7 +122,6 @@ for line in All:
     if X[0][0:5] == "START":
         X = remove_space( X )
         START = float( X[1] )
-print START
 
 
 for line in All:
@@ -132,7 +129,6 @@ for line in All:
     if X[0][0:6] == "FINISH":
         X = remove_space( X )
         FINISH = float( X[1] )
-print FINISH
 
 
 #sort DMX and DM
