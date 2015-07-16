@@ -6,7 +6,7 @@
 # Period Derivative is the pulsar spin down rate. As pulsar gets older and olders, it gradually slows down which will cause a time delay.
 # the y-axis unit is in seconds
 
-
+# HOW TO RUN:
 # to RUN this code, you will need to type in pulsar's par file name in the command line. eg: python pulsar_timing_model.py J1714_3707Nanoxxxx.par
 
 import sys
