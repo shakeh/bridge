@@ -196,7 +196,6 @@ plt.plot(DMXRI, b, 'k_-',label='DMxth')
 plt.plot(DMXRI, b, 'g-')
 setp( ax3.get_xticklabels(), visible=False)
 plt.legend(bbox_to_anchor=(0, 1), loc=2, borderaxespad=0.,prop={'size':8.5})
-plt.ylabel('cm^-3*pc')
 ax4.yaxis.label.set_color('g')
 
 
