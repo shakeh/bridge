@@ -28,9 +28,7 @@ def remove_space( A ):
             ret.append( curr )
     return ret
 
-def PB( A ):
-  r = 4.925490947 * A
-  return (r)
+
 
 
 
@@ -148,7 +146,6 @@ for i in range(len(DMXRI)):
 #convert DM to delays for plotting 
 b = [x * 4.419 * 10**5 * (600**-2 - 800**-2) * 0.001 for x in d]
 
-r = PB( M2  )
 
 #convert RAJ and DECJ to degrees
 
@@ -171,9 +168,9 @@ lamdaa, betaa = Cel2Ecl( deg, deg2 )
 # range depends on whether the par file is a 5 year or 9 year data.
 t = arange(START, FINISH, 0.01)
 
-s1 = 500 * 10**-22  * cos(betaa) * cos(( t  - START  ) * 2 * pi  /365.25 + lamdaa) #here roemer has a much larger coefficient compare to the other two, so I reduce its value by 10^-22 to make them on the same scale
+s1 = 500  * cos(betaa) * cos(( t  - START  ) * 2 * pi  /365.25 + lamdaa) #here roemer has a much larger coefficient compare to the other two, so I reduce its value by 10^-22 to make them on the same scale
 s2 = - F1 * ((t - START) * 2 * pi /365.25)  /( F0**2)
-s3 = 4.149 * 10**5 * DM * t/t * (600**-2 - 800**-2) * 0.001 * 10**-18
+s3 = 4.149 * 10**5 * DM * t/t * (600**-2 - 800**-2) * 0.001 
 
 ax4 = subplot(414)
 plt.plot(t,s1 + s2 - s3,'c',label='delay sum')
@@ -199,7 +196,6 @@ plt.plot(DMXRI, b, 'k_-',label='DMxth')
 plt.plot(DMXRI, b, 'g-')
 setp( ax3.get_xticklabels(), visible=False)
 plt.legend(bbox_to_anchor=(0, 1), loc=2, borderaxespad=0.,prop={'size':8.5})
-plt.ylabel('cm^-3*pc')
 ax4.yaxis.label.set_color('g')
 
 
