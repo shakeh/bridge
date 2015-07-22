@@ -8,6 +8,7 @@
 # the output file will have the same name as the input file, with "Output_for_plotting_" as a prefix: "Output_for_plotting_B1855+09_NANOGrav_9yv0.tim"
 # it is possible to name the output file differently by putting the file name in [OUTPUT DIRECTORY]: /Users/fkeri/Desktop/filename.tim
 
+import os
 import sys
 import math
 import numpy as N
@@ -77,7 +78,7 @@ pulsar_file = pulsar_path.split('/')
 pulsar_name = pulsar_file[-1].split('.')
 
 if sys.argv[3][-4] != '.':
-    outFile = open( os.path.join( str(sys.argv[ 3 ]), "Output_for_plotting_"+pulsar_name[0]+".tim", "w" )
+    outFile = open( os.path.join( str(sys.argv[ 3 ]), "Output_for_plotting_"+pulsar_name[0]+".tim"), "w" )
 else:
     outFile = open( sys.argv[3], "w" )
 
