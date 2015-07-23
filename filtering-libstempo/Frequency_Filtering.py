@@ -39,6 +39,7 @@ if save_path[-5] != '.':
 else:
     nameFile = save_path
 outFile = open( nameFile, "w" ) # outfile that will contain the filtered frequencies
+outFile.write('FORMAT 1\n')
 
 cnt = 0
 for i in range( len( All_Lines ) ):

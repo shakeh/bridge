@@ -65,6 +65,7 @@ if save_path[-4] != '.':
 else:
     nameFile = save_path
 outFile = open( nameFile, "w" )
+outFile.write('FORMAT 1\n')
 
 inFile.readline() #omit first line
 ALLlines = inFile.readlines()
