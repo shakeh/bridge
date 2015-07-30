@@ -34,7 +34,7 @@ start = float( sys.argv[3] ) # start and end frequency
 end = float( sys.argv[4] ) 
 
 save_path = sys.argv[5]
-if save_path[-5] != '.':
+if not save_path.endswith('.tim'):
     nameFile = os.path.join( save_path, "FreqRange_"+sys.argv[2].split("/")[-1] )
 else:
     nameFile = save_path
