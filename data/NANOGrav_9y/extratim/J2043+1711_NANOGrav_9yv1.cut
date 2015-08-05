@@ -1,0 +1,8 @@
+C Updated by replace_toas.py on Thu May 21 16:46:30 2015
+FORMAT 1
+puppi_56297_J2043+1711_1638.9y.x.ff 1261.510010 56297.739895050612522   1.887  ao  -fe L-wide -be PUPPI -f L-wide_PUPPI -bw 12.5 -tobs 1147.9 -tmplt J2043+1711.L-wide.PUPPI.9y.x.sum.sm -gof 1.53 -nbin 2048 -nch 8 -chan 41 -subint 2 -snr 13.341 -wt 10762 -proc 9y -pta NANOGrav
+puppi_56367_J2043+1711_0429.9y.x.ff 1248.857056 56367.595185213277917   5.091  ao  -fe L-wide -be PUPPI -f L-wide_PUPPI -bw 12.5 -tobs 553.47 -tmplt J2043+1711.L-wide.PUPPI.9y.x.sum.sm -gof 1.22 -nbin 2048 -nch 8 -chan 42 -subint 0 -snr 8.2405 -wt 5781.4 -proc 9y -pta NANOGrav
+puppi_56384_J2043+1711_0631.9y.x.ff 1234.855957 56384.537686131854890   1.697  ao  -fe L-wide -be PUPPI -f L-wide_PUPPI -bw 12.5 -tobs 655.97 -tmplt J2043+1711.L-wide.PUPPI.9y.x.sum.sm -gof 1.39 -nbin 2048 -nch 8 -chan 43 -subint 0 -snr 11.457 -wt 4740.4 -proc 9y -pta NANOGrav
+puppi_56532_J2043+1711_0022.9y.x.ff 1236.562012 56532.140940264123548   2.384  ao  -fe L-wide -be PUPPI -f L-wide_PUPPI -bw 12.5 -tobs 901.96 -tmplt J2043+1711.L-wide.PUPPI.9y.x.sum.sm -gof 1.17 -nbin 2048 -nch 8 -chan 43 -subint 0 -snr 8.7694 -wt 8327.7 -proc 9y -pta NANOGrav
+puppi_56549_J2043+1711_0169.9y.x.ff 1238.358032 56549.081398918740108   2.420  ao  -fe L-wide -be PUPPI -f L-wide_PUPPI -bw 12.5 -tobs 1200.8 -tmplt J2043+1711.L-wide.PUPPI.9y.x.sum.sm -gof 1.4 -nbin 2048 -nch 8 -chan 43 -subint 0 -snr 9.036 -wt 10925 -proc 9y -pta NANOGrav
+puppi_56570_J2043+1711_0460.9y.x.ff 1238.192017 56570.022732869264526   3.476  ao  -fe L-wide -be PUPPI -f L-wide_PUPPI -bw 12.5 -tobs 1200.8 -tmplt J2043+1711.L-wide.PUPPI.9y.x.sum.sm -gof 1.63 -nbin 2048 -nch 8 -chan 43 -subint 0 -snr 7.2558 -wt 8569.5 -proc 9y -pta NANOGrav

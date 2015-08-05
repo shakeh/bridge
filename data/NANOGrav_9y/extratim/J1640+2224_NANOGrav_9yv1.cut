@@ -1,0 +1,4 @@
+C Updated by replace_toas.py on Thu May 21 16:44:23 2015
+FORMAT 1
+puppi_56479_1640+2224_0306.9y.x.ff 1760.512939 56479.064675670923034  11.944  ao  -fe L-wide -be PUPPI -f L-wide_PUPPI -bw 12.5 -tobs 1004.5 -tmplt J1640+2224.L-wide.PUPPI.9y.x.sum.sm -gof 1.12 -nbin 2048 -nch 8 -chan 1 -subint 0 -snr 8.3652 -wt 2242.1 -proc 9y -pta NANOGrav
+puppi_56518_1640+2224_0848.9y.x.ff 1238.597046 56518.982716646488571  12.482  ao  -fe L-wide -be PUPPI -f L-wide_PUPPI -bw 12.5 -tobs 1311.9 -tmplt J1640+2224.L-wide.PUPPI.9y.x.sum.sm -gof 1.4 -nbin 2048 -nch 8 -chan 43 -subint 0 -snr 8.4696 -wt 11755 -proc 9y -pta NANOGrav
