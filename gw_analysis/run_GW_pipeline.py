@@ -6,12 +6,14 @@ from PAL2 import PALdatafile
 from scipy.optimize import fmin
 import matplotlib.pyplot as plt
 import matplotlib.ticker
+import scipy.special as ss
+import json
 import glob, os
 
 import argparse
 
 
-parser = argparse.ArgumentParser(description = 'Run PAL2 Optimal Statistic pipeline')
+parser = argparse.ArgumentParser(description = 'Run PAL2 Frequentist GW pipeline')
 
 parser.add_argument('--partim', dest='partim', action='store', type=str, default='./',
                    help='Full path to par/tim directory')
@@ -19,6 +21,8 @@ parser.add_argument('--outdir', dest='outdir', action='store', type=str, default
                    help='Full path to output directory (default = ./)')
 parser.add_argument('--pulsar', dest='pname', action='store', nargs='+', \
                     type=str, required=True, help='names of pulsars to use')
+parser.add_argument('--pta', dest='pta', action='store', type=str, 
+                    help='Which PTA set to use [nanograv9, nanograv5, pptadr1] (default=None)')
 parser.add_argument('--noisedir', dest='noisedir', action='store', type=str, default=None,
                    help='Full path to noisefile directory (default = None)')
 parser.add_argument('--pipeline', dest='pipeline', action='store', type=str, default='OS',
@@ -86,6 +90,19 @@ elif args.pname[0] == 'all':
     print 'Using all pulsars'
     pulsar_names = [str(name) for name in df.getPulsarList()]
 
+
+# set noise model based on PTA
+incEquad = False
+incJitterEquad = False
+incDM = False
+print args.pta
+if args.pta in ['nanograv9', 'nanograv5']:
+    incEquad = True
+    incJitterEquad = True
+elif args.pta in ['pptadr1']:
+    incEquad = True
+    incDM = True
+
 # only re-run noise estimation if required
 if args.noisedir is None:
 
@@ -101,13 +118,13 @@ if args.noisedir is None:
         model = PALmodels.PTAmodels(h5filename, pulsars=pulsars)
         
         fullmodel = model.makeModelDict(incRedNoise=True, noiseModel='powerlaw',
-                        incDM=False, dmModel='powerlaw',
+                        incDM=incDM, dmModel='powerlaw',
                         separateEfacs=False, separateEfacsByFreq=True,
                         separateEquads=False, separateEquadsByFreq=True,
                         separateJitter=False, separateJitterEquadByFreq=True,
-                        incEquad=False, incJitter=False, incJitterEquad=False,
+                        incEquad=incEquad, incJitter=False, incJitterEquad=incJitterEquad,
                         incGWB=False, nfreqs=50, ndmfreqs=50,
-                        compression='None', likfunc='mark6')
+                        compression='None', likfunc='mark9')
         
         model.initModel(fullmodel, memsave=True, fromFile=False,
                         verbose=False, write='no')
@@ -165,16 +182,19 @@ elif args.pname[0] == 'all':
 
 # likelihood function depends on pipeline
 if args.pipeline == 'OS':
-    likfunc = 'mark1'
+    if args.pta in ['nanograv5', 'nanograv9']:
+        likfunc = 'mark2'
+    else:
+        likfunc = 'mark1'
 elif args.pipeline == 'Fstat':
     likfunc = 'mark6'
     
 fullmodel = model.makeModelDict(incRedNoise=True, noiseModel='powerlaw',
-                    incDM=False, dmModel='powerlaw',
+                    incDM=incDM, dmModel='powerlaw',
                     separateEfacs=False, separateEfacsByFreq=True,
                     separateEquads=False, separateEquadsByFreq=True,
                     separateJitter=False, separateJitterEquadByFreq=True,
-                    incEquad=False, incJitter=False, incJitterEquad=False,
+                    incEquad=incEquad, incJitter=False, incJitterEquad=incJitterEquad,
                     incGWB=False, nfreqs=50, ndmfreqs=50,
                     compression='None', likfunc=likfunc)
 
@@ -195,9 +215,14 @@ model.initModel(fullmodel, memsave=True, fromFile=False, verbose=False, write='n
 # set initial parameters
 p0 = model.initParameters(fixpstart=True, startEfacAtOne=False)
 
+if args.pta in ['nanograv5', 'nanograv9']:
+    ostat = model.optimalStatisticCoarse
+else:
+    ostat = model.optimalStatistic
+
 # run optimal statistic
 if args.pipeline == 'OS':
-    xi, rho, sig, Opt, Sig = model.optimalStatistic(p0)
+    xi, rho, sig, Opt, Sig = ostat(p0)
 
     # average data
     avexi, averho, avesig = PALutils.binresults(xi, rho, sig, nbins=18)
@@ -243,13 +268,21 @@ if args.pipeline == 'OS':
     #plt.ylabel('Correlation Coefficient')
     plt.savefig(outdir+'/hd.pdf', bbox_inches='tight')
     print 'A_gw = {0}'.format(np.sqrt(Opt))
+    print 'A_95 = {0}'.format(np.sqrt(Opt + np.sqrt(2)*Sig*ss.erfcinv(2*(1-0.95))))
     print 'SNR = {0}'.format(Opt/Sig)
+    x = {}
+    x['A_gw'] = np.sqrt(Opt)
+    x['A_95'] = np.sqrt(Opt + np.sqrt(2)*Sig*ss.erfcinv(2*(1-0.95)))
+    x['SNR'] = Opt/Sig
+    with open(outdir + '/os_out.json', 'w') as f:
+        json.dump(x, f)
+
     
 elif args.pipeline == 'Fstat':
     from scipy.interpolate import interp1d
 
     # call likelihood once to set noise
-    model.mark6LogLikelihood(p0, incCorrelations=False, incJitter=False,
+    model.mark6LogLikelihood(p0, incCorrelations=False, incJitter=incJitterEquad,
                              varyNoise=True, fixWhite=False)
     f = np.logspace(-9, -7, 1000)
     fpstat = np.zeros(len(f))
@@ -266,6 +299,12 @@ elif args.pipeline == 'Fstat':
 
     print('ML frequency = {0} Hz'.format(f[ind]))
     print('FAP = {0}'.format(PALutils.ptSum(len(model.psr), fpstat[ind])))
+    x = {}
+    x['ML frequency'] = f[ind]
+    x['FAP'] = PALutils.ptSum(len(model.psr), fpstat[ind])
+    with open(outdir + '/fstat_out.json', 'w') as fl:
+        json.dump(x, fl)
+    
     plt.semilogx(f, fpstat)
     ls = ['-', '--', ':']
     for ct, fap in enumerate(faps):
