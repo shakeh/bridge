@@ -22,7 +22,7 @@ parser.add_argument('--outdir', dest='outdir', action='store', type=str, default
 parser.add_argument('--pulsar', dest='pname', action='store', nargs='+', \
                     type=str, required=True, help='names of pulsars to use')
 parser.add_argument('--pta', dest='pta', action='store', type=str, 
-                    help='Which PTA set to use [nano9, nano5, pptadr1] (default=None)')
+                    help='Which PTA set to use [nanograv9, nanograv5, pptadr1] (default=None)')
 parser.add_argument('--noisedir', dest='noisedir', action='store', type=str, default=None,
                    help='Full path to noisefile directory (default = None)')
 parser.add_argument('--pipeline', dest='pipeline', action='store', type=str, default='OS',
@@ -96,7 +96,7 @@ incEquad = False
 incJitterEquad = False
 incDM = False
 print args.pta
-if args.pta in ['nano9', 'nano5']:
+if args.pta in ['nanograv9', 'nanograv5']:
     incEquad = True
     incJitterEquad = True
 elif args.pta in ['pptadr1']:
@@ -182,7 +182,7 @@ elif args.pname[0] == 'all':
 
 # likelihood function depends on pipeline
 if args.pipeline == 'OS':
-    if args.pta in ['nano5', 'nano9']:
+    if args.pta in ['nanograv5', 'nanograv9']:
         likfunc = 'mark2'
     else:
         likfunc = 'mark1'
@@ -215,7 +215,7 @@ model.initModel(fullmodel, memsave=True, fromFile=False, verbose=False, write='n
 # set initial parameters
 p0 = model.initParameters(fixpstart=True, startEfacAtOne=False)
 
-if args.pta in ['nano5', 'nano9']:
+if args.pta in ['nanograv5', 'nanograv9']:
     ostat = model.optimalStatisticCoarse
 else:
     ostat = model.optimalStatistic
