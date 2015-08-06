@@ -1,0 +1,8 @@
+C Updated by replace_toas.py on Thu May 21 16:46:04 2015
+FORMAT 1
+55528.000038.3.000.000.9y.x.ff 1394.000000 55528.816775684511949  43.375  ao  -fe L-wide -be ASP -f L-wide_ASP -bw 4 -tobs 722.66 -tmplt J1944+0907.L-wide.PUPPI.9y.x.sum.sm -gof 0.937 -nbin 2048 -nch 1 -chan 12 -subint 0 -snr 8.4506 -wt 12 -proc 9y -pta NANOGrav -to -0.839e-6
+55528.000038.3.000.000.9y.x.ff 1390.000000 55528.816775683753121  23.552  ao  -fe L-wide -be ASP -f L-wide_ASP -bw 4 -tobs 722.66 -tmplt J1944+0907.L-wide.PUPPI.9y.x.sum.sm -gof 0.963 -nbin 2048 -nch 1 -chan 13 -subint 0 -snr 11.59 -wt 12 -proc 9y -pta NANOGrav -to -0.839e-6
+55528.000038.3.000.000.9y.x.ff 1386.000000 55528.816775682478434  31.407  ao  -fe L-wide -be ASP -f L-wide_ASP -bw 4 -tobs 722.66 -tmplt J1944+0907.L-wide.PUPPI.9y.x.sum.sm -gof 1.01 -nbin 2048 -nch 1 -chan 14 -subint 0 -snr 8.4031 -wt 12 -proc 9y -pta NANOGrav -to -0.839e-6
+55760.000008.3.000.000.9y.x.ff 1430.000000 55760.179482778426992  29.524  ao  -fe L-wide -be ASP -f L-wide_ASP -bw 4 -tobs 1204.4 -tmplt J1944+0907.L-wide.PUPPI.9y.x.sum.sm -gof 2.63 -nbin 2048 -nch 1 -chan 1 -subint 0 -snr 9.8435 -wt 20 -proc 9y -pta NANOGrav -to -0.839e-6
+puppi_56467_1944+0907_0163.9y.x.ff 1758.509033 56467.240649711833758  17.869  ao  -fe L-wide -be PUPPI -f L-wide_PUPPI -bw 12.5 -tobs 1534.8 -tmplt J1944+0907.L-wide.PUPPI.9y.x.sum.sm -gof 3.93 -nbin 2048 -nch 8 -chan 1 -subint 0 -snr 11.818 -wt 8203.9 -proc 9y -pta NANOGrav
+puppi_56467_1944+0907_0163.9y.x.ff 1611.249023 56467.240649722803878  20.533  ao  -fe L-wide -be PUPPI -f L-wide_PUPPI -bw 12.5 -tobs 1534.8 -tmplt J1944+0907.L-wide.PUPPI.9y.x.sum.sm -gof 1.97 -nbin 2048 -nch 8 -chan 13 -subint 0 -snr 12.203 -wt 16786 -proc 9y -pta NANOGrav

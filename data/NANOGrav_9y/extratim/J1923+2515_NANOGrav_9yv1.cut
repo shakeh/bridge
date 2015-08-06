@@ -1,0 +1,6 @@
+C Updated by replace_toas.py on Thu May 21 16:45:39 2015
+FORMAT 1
+puppi_56059_1923+2515_0330.9y.x.ff 1238.649048 56059.332451098004109  16.063  ao  -fe L-wide -be PUPPI -f L-wide_PUPPI -bw 12.5 -tobs 1209.4 -tmplt J1923+2515.L-wide.PUPPI.9y.x.sum.sm -gof 1.35 -nbin 2048 -nch 8 -chan 43 -subint 0 -snr 14.628 -wt 4276 -proc 9y -pta NANOGrav
+puppi_56465_1923+2515_0129.9y.x.ff 1238.621948 56465.222601092096124  12.991  ao  -fe L-wide -be PUPPI -f L-wide_PUPPI -bw 12.5 -tobs 1065.9 -tmplt J1923+2515.L-wide.PUPPI.9y.x.sum.sm -gof 1.31 -nbin 2048 -nch 8 -chan 43 -subint 0 -snr 10.749 -wt 9913.2 -proc 9y -pta NANOGrav
+puppi_56511_1923+2515_0706.9y.x.ff 1758.314941 56511.096734257235634  11.680  ao  -fe L-wide -be PUPPI -f L-wide_PUPPI -bw 12.5 -tobs 1260.7 -tmplt J1923+2515.L-wide.PUPPI.9y.x.sum.sm -gof 3.73 -nbin 2048 -nch 8 -chan 1 -subint 0 -snr 8.1055 -wt 6293.8 -proc 9y -pta NANOGrav
+puppi_56511_1923+2515_0706.9y.x.ff 1238.093994 56511.096734254094011  15.361  ao  -fe L-wide -be PUPPI -f L-wide_PUPPI -bw 12.5 -tobs 1260.7 -tmplt J1923+2515.L-wide.PUPPI.9y.x.sum.sm -gof 1.36 -nbin 2048 -nch 8 -chan 43 -subint 0 -snr 8.2773 -wt 10025 -proc 9y -pta NANOGrav

@@ -1,0 +1,6 @@
+C Updated by replace_toas.py on Thu May 21 16:45:13 2015
+FORMAT 1
+guppi_56214_J1747-4036_0016.9y.S.ff 1156.675049 56214.868605699698691   3.353  gbt  -fe Rcvr1_2 -be GUPPI -f Rcvr1_2_GUPPI -bw 12.5 -tobs 1459.9 -tmplt J1747-4036.Rcvr1_2.GUPPI.9y.x.sum.sm -gof 1.03 -nbin 2048 -nch 8 -chan 4 -subint 0 -snr 18.746 -wt 14636 -proc 9y -pta NANOGrav
+guppi_56214_J1747-4036_0016.9y.S.ff 1167.968018 56214.868605689356197   3.893  gbt  -fe Rcvr1_2 -be GUPPI -f Rcvr1_2_GUPPI -bw 12.5 -tobs 1459.9 -tmplt J1747-4036.Rcvr1_2.GUPPI.9y.x.sum.sm -gof 1.08 -nbin 2048 -nch 8 -chan 5 -subint 0 -snr 19.449 -wt 18248 -proc 9y -pta NANOGrav
+guppi_56214_J1747-4036_0016.9y.S.ff 1180.468018 56214.868605690277012   3.519  gbt  -fe Rcvr1_2 -be GUPPI -f Rcvr1_2_GUPPI -bw 12.5 -tobs 1459.9 -tmplt J1747-4036.Rcvr1_2.GUPPI.9y.x.sum.sm -gof 1.15 -nbin 2048 -nch 8 -chan 6 -subint 0 -snr 18.718 -wt 18248 -proc 9y -pta NANOGrav
+guppi_56214_J1747-4036_0016.9y.S.ff 1193.359009 56214.868605691258318   3.760  gbt  -fe Rcvr1_2 -be GUPPI -f Rcvr1_2_GUPPI -bw 12.5 -tobs 1459.9 -tmplt J1747-4036.Rcvr1_2.GUPPI.9y.x.sum.sm -gof 0.98 -nbin 2048 -nch 8 -chan 7 -subint 0 -snr 12.178 -wt 9124.1 -proc 9y -pta NANOGrav

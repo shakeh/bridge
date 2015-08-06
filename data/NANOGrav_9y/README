@@ -1,0 +1,86 @@
+NANOGrav 9-year data set
+Initial public release "9yv1" 2015/05/28
+
+DESCRIPTION
+-----------
+
+  This file contains TOAs and timing solutions for the NANOGrav "9 year"
+data set, covering data taken from ~2005--2013 using Arecibo and the
+GBT, with both ASP/GASP and GUPPI/PUPPI backend instrumentation.  A
+detailed description of the data set and timing methodology is published
+as "The NANOGrav Nine-year Data Set: Observations, Arrival Time
+Measurements, and Analysis of 37 Millisecond Pulsars" by Arzoumanian et
+al. (2015; arXiv:1505.NNNN); this paper should of course be cited in any
+use of this data set.  Further questions about the contents of this data
+set can be sent to Paul Demorest (pdemores@nrao.edu) and/or David Nice
+(niced@lafayette.edu).
+
+  The current version is the initial public release, compiled at the
+time of submission of the accompanying paper.  While we do not
+anticipate any major changes, minor changes in the contents (eg, in
+response to referee comments) are still possible.
+
+USAGE NOTES
+-----------
+
+  With the exception of J1713+0747, all par and tim files should work
+identically in both tempo and tempo2.  For J1713+0747, tempo2 requires
+an alternate par file (J1713+0747_NANOGrav_9yv1.t2.gls.par).  A
+comparison of results fitting with tempo and tempo2 can be found at:
+http://www.cv.nrao.edu/~pdemores/nanograv_data/tempo_compare_9y.html
+
+  This data set requires very up-to-date installs of tempo or tempo2 in
+order to work correctly.  If your install of either is older than
+November 2014 (tempo version 2014-11-20 76b8375; tempo2 version
+2014.11.1), it should be updated from the source repositories at:
+
+   http://tempo.sourceforge.net
+   http://tempo2.sourceforge.net
+
+  All models included here are based on a generalized least squares
+(GLS) fit that includes a noise model with covariance between TOAs
+(ECORR/jitter parameters; RNAMP/RNIDX red noise parameters), as well as
+"traditional" EQUAD and EFAC parameters.  All noise model parameters are
+included in the par files.  In order to run tempo with GLS fitting, you
+must include the "-G" flag on the tempo command line.  tempo2 will
+notice the presence of the relevant parameters and enable GLS fitting
+automatically.  If this seems not to be working, please check that your
+version of tempo/tempo2 is up to date as described above.  In tempo2, if
+GLS fitting is working, you should see output lines similar to:
+
+    Including red noise and/or ECORR parameters, calling new dofit
+    Including ECORR value for backend Rcvr_800_GUPPI: 0.196088 mus
+    Including ECORR value for backend Rcvr_800_GASP: 0.00795474 mus
+    (...etc...)
+
+  The clock files provided in the clock/ subdirectory need to be
+installed.  Please see the README.clock file in that directory for
+installation instructions.
+
+  The release contains a file named 'stats_9y_YYYYMMDD.dat' that lists
+the fit degrees of freedom (number of data points minus number of
+parameters), and the non-reduced chi2 achieved with tempo and tempo2 for
+each pulsar.  When starting to use this data set, or with a version
+update, it is highly recommended that you compare your local results
+with this table as a test that your tempo install, clock files, etc are
+set up correctly.
+
+  The extratim/ subdirectory contains sets of supplementary TOAs that
+were not used in the timing and noise model fits presented here.  The
+*.dmxcut files contain TOAs from observing epochs where small fractional
+bandwidth prevents a useful DM measurement.  The *.cut files contain a
+small number of TOAs that were manually identified as outliers.  See the
+9-year data set paper for additional discussion.
+
+  The template/ subdirectory contains all pulse profile templates used
+for generation of the TOAs in this data set.  The templates are given in
+PSRFITS format, and the template used for any given TOA can be
+identified via the -tmpl flag on the TOA line.  See the 9-year data set
+paper and also Demorest et al (2013) for a description of the algorithms
+used in template profile generation.
+
+CHANGE LOG
+----------
+
+2015/05/28 PBD Initial public release (9yv1).
+

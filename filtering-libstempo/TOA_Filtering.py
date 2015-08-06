@@ -60,11 +60,12 @@ def transform( X ):
 inFile = open( sys.argv[2], "r" )
 
 save_path = sys.argv[5]
-if save_path[-4] != '.':
+if not save_path.endswith('.tim'):
     nameFile = os.path.join( save_path, "TOArange_"+sys.argv[2].split("/")[-1] )
 else:
     nameFile = save_path
 outFile = open( nameFile, "w" )
+outFile.write('FORMAT 1\n')
 
 inFile.readline() #omit first line
 ALLlines = inFile.readlines()

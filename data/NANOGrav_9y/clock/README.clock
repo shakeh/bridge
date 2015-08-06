@@ -1,0 +1,15 @@
+This dir contains clock correction files appropriate for the
+nanograv_2013 dataset.  The tempo files are already checked in to CVS,
+so can alternately be installed that way.  The tempo2 files should be
+installed manually.
+
+Installation:
+
+  cp time_gbt.dat time_ao.dat bipmnist.12.extrap ut1.dat $TEMPO/clock/
+
+  cp gbt2gps.dat ao2gps.clk tai2tt_bipm2012.clk ut1.dat $TEMPO2/clock/
+  cp eopc04_IAU2000.62-now $TEMPO2/earth/
+
+As an alternative to installing these files as described above, if using tempo,
+the CLKDIR line in $TEMPO/tempo.cfg can be edited to point to this directory
+directly.
