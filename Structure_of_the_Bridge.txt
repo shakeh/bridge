@@ -1,0 +1,43 @@
+Object Oriented Data Technology (OODT) code is 
+/usr/local/nanograv-pipeline
+(Apache OODT integrates and archives your processes, your data, and its metadata)
+
+
+The User Interface (UI) code is in
+/usr/local/www/nano
+Directory:  "app" is the broad application itself
+Subdirectory "partials" are things that do individual pages
+See analysis.htm for  
+all the stuff we're doing is under analysis.html
+you can see the html branch
+For example search for "Step 1" and you'll see where that button is named.
+"accordions" are the things that expand into a bunch of options when you click on them
+Search for "accordion-heading" and you'll see the titles of the accordions
+Comments are enclosed in <!--   --> (and it appears in blue in vi)   
+
+"Step 2" Perform analysis
+"Engage" buttons are here.
+
+There is a class of scripts that end in "js" (java script)
+controllers.js   has something that handles your request (called a handler)
+you can see the defaults in line 8 in controller.js
+
+processAnalysisForm runs the residual code
+
+http.get calls - calls the background api (application programming interface) 
+(there are a series of "get" calls)
+
+If you run the bridge locally you can look at processes like these:
+local:5000/api/get/os/14248
+
+When you are on the bridge you
+can right click and inspect element
+the api knows where to grab all this data from and spits it back out
+you can watch it call thing "get" when you click "engage" on the web page
+
+select optimal analysis
+in the consol it calls another analysis and gives it the sessionID
+
+nanograv-pipeline/logs
+Contains the OODT logs.  If you run into an error it's useful to look here.
+Nate now knows how to look at these.
