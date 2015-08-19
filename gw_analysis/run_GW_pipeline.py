@@ -93,7 +93,7 @@ if not os.path.exists(args.outdir):
 h5filename = outdir + '/h5file.hdf5'
 df = PALdatafile.DataFile(h5filename)
 for t,p in zip(timFiles[:], parFiles[:]):
-    if get_name(p) in args.pname:
+    if get_name(p) in args.pname or args.pname == 'all':
         df.addTempoPulsar(p, t, iterations=3, sigma=10000)
 
 if args.pname[0] != 'all':
@@ -278,7 +278,7 @@ if args.pipeline == 'OS':
     #plt.errorbar(xi*180/np.pi, rho, sig, fmt='.')
     #plt.xlabel('Angular Separation [degrees]')
     #plt.ylabel('Correlation Coefficient')
-    plt.savefig(outdir+'/hd.pdf', bbox_inches='tight')
+    plt.savefig(outdir+'/hd.png', bbox_inches='tight')
     print 'A_gw = {0}'.format(np.sqrt(np.abs(Opt)))
     print 'A_95 = {0}'.format(np.sqrt(np.abs(Opt + np.sqrt(2)*Sig*ss.erfcinv(2*(1-0.95)))))
     print 'SNR = {0}'.format(Opt/Sig)
@@ -326,6 +326,6 @@ elif args.pipeline == 'Fstat':
     plt.ylabel(r'$2\mathcal{F}_p$')
     plt.legend(loc='best', frameon=False)
     plt.minorticks_on()
-    plt.savefig(outdir+'/fpstat.pdf', bbox_inches='tight')
+    plt.savefig(outdir+'/fpstat.png', bbox_inches='tight')
     plt.show()
     
