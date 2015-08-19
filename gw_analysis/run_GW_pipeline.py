@@ -83,6 +83,9 @@ plt.rcParams.update(params)
 parFiles = glob.glob(args.partim + '/*.par')
 timFiles = glob.glob(args.partim + '/*.tim')
 
+parFiles.sort()
+timFiles.sort()
+
 # make HDF5 file
 outdir = args.outdir
 if not os.path.exists(args.outdir):
@@ -93,7 +96,7 @@ if not os.path.exists(args.outdir):
 h5filename = outdir + '/h5file.hdf5'
 df = PALdatafile.DataFile(h5filename)
 for t,p in zip(timFiles[:], parFiles[:]):
-    if get_name(p) in args.pname or args.pname == 'all':
+    if get_name(p) in args.pname or args.pname[0] == 'all':
         df.addTempoPulsar(p, t, iterations=3, sigma=10000)
 
 if args.pname[0] != 'all':
