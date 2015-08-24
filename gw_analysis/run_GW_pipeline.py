@@ -28,6 +28,17 @@ parser.add_argument('--noisedir', dest='noisedir', action='store', type=str, def
 parser.add_argument('--pipeline', dest='pipeline', action='store', type=str, default='OS',
                    help='Which pipeline to run (default = OS) [Fstat, OS]')
 
+
+def get_name(parfile):
+    fout = open(parfile, 'r')
+
+    lines = fout.readlines()
+    for line in lines:
+        if 'PSRJ' in line:
+            name = line.split()[-1]
+
+    return name
+
 # parse arguments
 args = parser.parse_args()
 
@@ -72,6 +83,9 @@ plt.rcParams.update(params)
 parFiles = glob.glob(args.partim + '/*.par')
 timFiles = glob.glob(args.partim + '/*.tim')
 
+parFiles.sort()
+timFiles.sort()
+
 # make HDF5 file
 outdir = args.outdir
 if not os.path.exists(args.outdir):
@@ -82,7 +96,8 @@ if not os.path.exists(args.outdir):
 h5filename = outdir + '/h5file.hdf5'
 df = PALdatafile.DataFile(h5filename)
 for t,p in zip(timFiles[:], parFiles[:]):
-    df.addTempoPulsar(p, t, iterations=3, sigma=10000)
+    if get_name(p) in args.pname or args.pname[0] == 'all':
+        df.addTempoPulsar(p, t, iterations=3, sigma=10000)
 
 if args.pname[0] != 'all':
     pulsar_names = args.pname
@@ -266,13 +281,13 @@ if args.pipeline == 'OS':
     #plt.errorbar(xi*180/np.pi, rho, sig, fmt='.')
     #plt.xlabel('Angular Separation [degrees]')
     #plt.ylabel('Correlation Coefficient')
-    plt.savefig(outdir+'/hd.pdf', bbox_inches='tight')
-    print 'A_gw = {0}'.format(np.sqrt(Opt))
-    print 'A_95 = {0}'.format(np.sqrt(Opt + np.sqrt(2)*Sig*ss.erfcinv(2*(1-0.95))))
+    plt.savefig(outdir+'/hd.png', bbox_inches='tight')
+    print 'A_gw = {0}'.format(np.sqrt(np.abs(Opt)))
+    print 'A_95 = {0}'.format(np.sqrt(np.abs(Opt + np.sqrt(2)*Sig*ss.erfcinv(2*(1-0.95)))))
     print 'SNR = {0}'.format(Opt/Sig)
     x = {}
-    x['A_gw'] = np.sqrt(Opt)
-    x['A_95'] = np.sqrt(Opt + np.sqrt(2)*Sig*ss.erfcinv(2*(1-0.95)))
+    x['A_gw'] = np.sqrt(np.abs(Opt))
+    x['A_95'] = np.sqrt(np.abs(Opt + np.sqrt(2)*Sig*ss.erfcinv(2*(1-0.95))))
     x['SNR'] = Opt/Sig
     with open(outdir + '/os_out.json', 'w') as f:
         json.dump(x, f)
@@ -314,6 +329,6 @@ elif args.pipeline == 'Fstat':
     plt.ylabel(r'$2\mathcal{F}_p$')
     plt.legend(loc='best', frameon=False)
     plt.minorticks_on()
-    plt.savefig(outdir+'/fpstat.pdf', bbox_inches='tight')
+    plt.savefig(outdir+'/fpstat.png', bbox_inches='tight')
     plt.show()
     
