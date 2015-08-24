@@ -11,6 +11,7 @@
 import os
 import sys
 import math
+import json
 import numpy as N
 import matplotlib.pyplot as P
 import libstempo as T
@@ -34,6 +35,13 @@ Residuals = psr.residuals()[ sort_cmp ]
 Errors = psr.toaerrs[ sort_cmp ]
 TOA = psr.stoas[ sort_cmp ]
 FREQ = psr.freqs[ sort_cmp ]
+
+# Getting 5 numbers that we need in the grand table
+minfreq = min(FREQ)
+maxfreq = max(FREQ)
+startMJD=min(TOA)
+endMJD=max(TOA)
+dataspan = (endMJD - startMJD)/(365.25)
 
 curr = [ Residuals[ 0 ], Errors[ 0 ], TOA[ 0 ], FREQ[ 0 ] ]
 for i in range( 1, len( TOA ) ):
@@ -76,6 +84,23 @@ for i in range( len( bin ) ):
 pulsar_path = str( sys.argv[ 1 ] )
 pulsar_file = pulsar_path.split('/')
 pulsar_name = pulsar_file[-1].split('.')
+
+# Get RMS of new averaged residuals
+# Subtract mean
+avgResidual = avgResidual - N.mean(avgResidual)
+rms = 1.e6*N.sqrt(N.mean(N.square(avgResidual)))
+# Put all 5 numbers into a json
+# Make the JSON file 
+x={}
+x['minfreq'] = minfreq
+x['maxfreq'] = maxfreq
+x['startMJD'] = float(startMJD)
+x['endMJD'] = float(endMJD)
+x['dataspan'] = float(dataspan)
+x['rms'] = float(rms)
+fjson=open(psr.name+'.json', 'w')
+json.dump(x,fjson)
+# Done writing the json file
 
 if sys.argv[3][-4] != '.':
     outFile = open( os.path.join( str(sys.argv[ 3 ]), "Output_for_plotting_"+pulsar_name[0]+".tim"), "w" )
