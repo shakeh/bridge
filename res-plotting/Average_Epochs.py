@@ -98,7 +98,7 @@ x['startMJD'] = float(startMJD)
 x['endMJD'] = float(endMJD)
 x['dataspan'] = float(dataspan)
 x['rms'] = float(rms)
-fjson=open(psr.name+'.json', 'w')
+fjson=open(os.path.join( str(sys.argv[ 3 ]), psr.name+'.json'), 'w')
 json.dump(x,fjson)
 # Done writing the json file
 
