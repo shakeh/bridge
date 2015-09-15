@@ -3,10 +3,11 @@ import numpy as np
 from PAL2 import PALmodels
 from PAL2 import PALutils
 from PAL2 import PALdatafile
-from scipy.optimize import fmin
+from scipy.optimize import fmin, minimize
 import matplotlib.pyplot as plt
 import matplotlib.ticker
 import scipy.special as ss
+import pyswarm
 import json
 import glob, os
 
@@ -139,7 +140,7 @@ if args.noisedir is None:
                         separateJitter=False, separateJitterEquadByFreq=True,
                         incEquad=incEquad, incJitter=False, incJitterEquad=incJitterEquad,
                         incGWB=False, nfreqs=50, ndmfreqs=50,
-                        compression='None', likfunc='mark9')
+                        compression='None', likfunc='mark6')
         
         model.initModel(fullmodel, memsave=True, fromFile=False,
                         verbose=False, write='no')
@@ -153,7 +154,6 @@ if args.noisedir is None:
             else:
                 par_out.append(pname)
                 
-        p0 = model.initParameters(fixpstart=True)
 
         print 'Search Parameters: {0}'.format(par_out)        
         
@@ -170,13 +170,20 @@ if args.noisedir is None:
         
         def minfunc(pars):
             if model.mark3LogPrior(pars) != -np.inf:
-                return -model.mark6LogLikelihood(pars)
+                ll = model.mark6LogLikelihood(pars, incJitter=incJitterEquad)
+                return -ll 
             else:
                 return 1e80
             
-        p0 = model.initParameters(fixpstart=True)
+        p0 = model.initParameters(fixpstart=False, startEfacAtOne=False)
             
-        maxpars = fmin(minfunc, p0, ftol=1e-5, maxiter=10000, maxfun=1000, disp=False)
+        #maxpars = fmin(minfunc, p0, ftol=1e-8, maxiter=10000, maxfun=1000, disp=True)
+        #x = minimize(minfunc, p0, method='CG', tol=1e-3)
+        #maxpars = x.x
+        maxpars, maxf = pyswarm.pso(minfunc, model.pmin, model.pmax, swarmsize=500, \
+                        omega=0.5, phip=0.5, phig=0.5, maxiter=1000, debug=False, \
+                        minfunc=1e-3)
+
         
         pars = np.loadtxt(outdir + '/chains/{0}'.format(model.psr[0].name)+ \
                           '/pars.txt', dtype='S42')
@@ -184,7 +191,7 @@ if args.noisedir is None:
         for ii,pp in enumerate(pars):
             fout.write('{0} {1}\n'.format(pp, maxpars[ii]))
         fout.close()
-        print psr, maxpars
+        print psr, maxpars, model.mark6LogLikelihood(maxpars, incJitter=incJitterEquad)
     
 
 # setup full model
@@ -210,7 +217,7 @@ fullmodel = model.makeModelDict(incRedNoise=True, noiseModel='powerlaw',
                     separateEquads=False, separateEquadsByFreq=True,
                     separateJitter=False, separateJitterEquadByFreq=True,
                     incEquad=incEquad, incJitter=False, incJitterEquad=incJitterEquad,
-                    incGWB=False, nfreqs=50, ndmfreqs=50,
+                    incGWB=False, nfreqs=50, ndmfreqs=50, Tmax=0,
                     compression='None', likfunc=likfunc)
 
 if args.noisedir is None:
@@ -299,9 +306,9 @@ elif args.pipeline == 'Fstat':
     # call likelihood once to set noise
     model.mark6LogLikelihood(p0, incCorrelations=False, incJitter=incJitterEquad,
                              varyNoise=True, fixWhite=False)
-    f = np.logspace(-9, -7, 1000)
+    f = np.logspace(-9, np.log10(4e-7), 300)
     fpstat = np.zeros(len(f))
-    for ii in range(1000):
+    for ii in range(300):
         fpstat[ii] = model.fpStat(f[ii])
 
     ind = np.argmax(fpstat)
@@ -330,5 +337,4 @@ elif args.pipeline == 'Fstat':
     plt.legend(loc='best', frameon=False)
     plt.minorticks_on()
     plt.savefig(outdir+'/fpstat.png', bbox_inches='tight')
-    plt.show()
     
