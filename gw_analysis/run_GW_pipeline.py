@@ -98,7 +98,7 @@ h5filename = outdir + '/h5file.hdf5'
 df = PALdatafile.DataFile(h5filename)
 for t,p in zip(timFiles[:], parFiles[:]):
     if get_name(p) in args.pname or args.pname[0] == 'all':
-        df.addTempoPulsar(p, t, iterations=3, sigma=10000)
+        df.addTempoPulsar(p, t, iterations=3)
 
 if args.pname[0] != 'all':
     pulsar_names = args.pname
