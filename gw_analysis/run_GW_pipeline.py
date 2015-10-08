@@ -35,10 +35,30 @@ def get_name(parfile):
 
     lines = fout.readlines()
     for line in lines:
-        if 'PSRJ' in line:
+        if 'PSRJ' in line or 'PSR' in line:
             name = line.split()[-1]
 
+    fout.close()
     return name
+
+def strip_parfile(parfile):
+
+    flags = ['TNEF', 'T2EFAC', 'TNEQ', 'T2EQUAD', 'TNECORR', 'ECORR', 
+             'TNRedAmp', 'TNRedGam', 'TNRedC', 'TNDMAmp', 'TNDMGam', 
+             'TNDMC', 'TNShapeletEvent', 'RNAMP', 'RNIDX']
+    
+    tmpname = parfile.split('/')[-1].split('.par')[0] + '_tmp.par'
+    tmpfile = open(tmpname, 'w')
+    fout = open(parfile, 'r')
+    lines = fout.readlines()
+    for line in lines:
+        if line.split()[0] not in flags:
+            tmpfile.write('%s'%line)
+
+    tmpfile.close()
+
+    return tmpname
+    
 
 # parse arguments
 args = parser.parse_args()
@@ -98,7 +118,8 @@ h5filename = outdir + '/h5file.hdf5'
 df = PALdatafile.DataFile(h5filename)
 for t,p in zip(timFiles[:], parFiles[:]):
     if get_name(p) in args.pname or args.pname[0] == 'all':
-        df.addTempoPulsar(p, t, iterations=3)
+        pf = strip_parfile(p)
+        df.addTempoPulsar(pf, t)
 
 if args.pname[0] != 'all':
     pulsar_names = args.pname
@@ -263,14 +284,14 @@ if args.pipeline == 'OS':
     plt.setp(ax1.get_xticklabels(), visible=False)
     ax1.yaxis.set_major_locator(matplotlib.ticker.MaxNLocator(
         nbins=6, integer=False, prune='both'))
-    ax1.set_ylabel(r'$A_{\rm gw}^2\Gamma_{ab}(\zeta)$ [$10^{-30}$]')
+    ax1.set_ylabel(r'Cross Correlated Power [1e-30]')
 
     ax2 = f.add_subplot(212, sharex=ax1)
     ax2.hist(xi*180/np.pi, 18, weights=1/sig, normed=True, histtype='step', lw=1.5)
 
     ax2.minorticks_on()
     ax2.yaxis.set_major_locator(ymajorLocator2)
-    ax2.set_xlabel('$\zeta$ [deg]')
+    ax2.set_xlabel('Angular Separation [deg]')
     ax2.set_ylabel(r'Prob.')
 
     ax3 = ax2.twinx()
