@@ -336,9 +336,9 @@ elif args.pipeline == 'Fstat':
 
     # get lines of Fpstat for different FAPs
     faps = [1e-3, 1e-4, 1e-5]
-    fstat = np.linspace(0.001, 1000, 10000)
+    fstat = np.linspace(0.0001, 10000, 10000)
     fap = np.array([PALutils.ptSum(len(model.psr), fp) for fp in fstat])
-    func = func = interp1d(fap, fstat)
+    func = interp1d(fap, fstat)
 
     print('ML frequency = {0} Hz'.format(f[ind]))
     print('FAP = {0}'.format(PALutils.ptSum(len(model.psr), fpstat[ind])))
