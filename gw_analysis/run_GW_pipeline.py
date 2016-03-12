@@ -119,7 +119,7 @@ df = PALdatafile.DataFile(h5filename)
 for t,p in zip(timFiles[:], parFiles[:]):
     if get_name(p) in args.pname or args.pname[0] == 'all':
         pf = strip_parfile(p)
-        df.addTempoPulsar(pf, t)
+        df.addTempoPulsar(pf, t, iterations=0)
 
 if args.pname[0] != 'all':
     pulsar_names = args.pname
